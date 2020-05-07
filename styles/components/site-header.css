@@ -1,0 +1,40 @@
+.site-header {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background-color: rgba(250, 250, 250, 0.9);
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  display: flex;
+  flex-wrap: wrap;
+  height: 80px;
+  padding: 0 50px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+.site-header.first-load {
+  animation: underscoreFade 1s both;
+  animation-delay: 1.5s;
+}
+
+@media screen and (max-width: 767px) {
+  .site-header {
+    animation: underscoreFade 1s both;
+    height: 40px;
+    padding: 0 10px;
+    transition: all ease-in .35s;
+  }
+
+  .is-exiting & {
+    transition-delay: .5s;
+  }
+
+  .site-header.first-load {
+    animation-delay: .75s;
+  }
+
+  .site-header.open {
+    height: 100%;
+  }
+}
