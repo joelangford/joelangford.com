@@ -1,8 +1,8 @@
 .site-header {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  background-color: rgba(250, 250, 250, 0.9);
-  border-bottom: 1px solid rgba(0,0,0,0.1);
+  background-color: var(--colour-translucent-white);
+  border-bottom: 1px solid var(--colour-transparent-black);
   display: flex;
   flex-wrap: wrap;
   height: 80px;
