@@ -26,7 +26,7 @@
     transition: all ease-in .35s;
   }
 
-  .is-exiting & {
+  .site-header.is-exiting {
     transition-delay: .5s;
   }
 

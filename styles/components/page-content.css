@@ -1,5 +1,5 @@
 .page-content {
-  border-bottom: 1px solid $grey;
+  border-bottom: 1px solid var(--colour-grey);
 }
 
 .page-content:last-child {
@@ -15,7 +15,7 @@
   text-transform: lowercase;
 }
 
-.cssanimations .page-content__title {
+.animations-active .page-content__title {
   opacity: 0;
 }
 

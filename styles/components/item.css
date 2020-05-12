@@ -28,11 +28,13 @@
 }
 
 .item__heading--underline {
-  border-bottom: 1px solid $grey;
+  border-bottom: 1px solid var(--colour-grey);
   display: inline-block;
   padding-bottom: 10px;
+}
 
-  @media screen and (max-width: $xs-max) {
+@media screen and (max-width: $xs-max) {
+  .item__heading--underline {
     padding-bottom: 5px;
   }
 }
@@ -60,7 +62,7 @@
   order: 3;
 }
 
-.cssanimations & {
+.animations-active .item {
   opacity: 0;
 }
 
