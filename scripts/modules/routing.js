@@ -22,8 +22,8 @@ const routing = () => {
     });
   }
 
-  const parseContentHTML = (xml) => {
-    const content  = xml.querySelector('.js-page-content');
+  const parseHTML = (xml, selector) => {
+    const content  = xml.querySelector(selector);
 
     if (content) {
       return content;
@@ -52,7 +52,13 @@ const routing = () => {
     }
   }
 
-  const updateNavigation = (navLinks) => {
+  const injectHeaderHtml = (content) => {
+    const $contentContainer = document.querySelector('body');
+    $contentContainer.prepend(content);
+  }
+
+  const updateNavigation = () => {
+    const navLinks = document.querySelectorAll('.js-nav-link');
     const contentAreas = document.querySelectorAll('.js-page-content');
     navLinks.forEach($navLink => {
       contentAreas.forEach($contentArea => {
@@ -94,23 +100,24 @@ const routing = () => {
       hideAllChildren($contentContainer);
 
       $cachedContent.style.display = 'block';
-      updateNavigation(navLinks);
+      updateNavigation();
     } else {
       requestHTML(targetUrl)
         .then((result) => {
-          return parseContentHTML(result);
+          return parseHTML(result, '.js-page-content');
         }).then((result) => {
           injectContentHtml(result);
-          updateNavigation(navLinks);
+          updateNavigation();
         })
-        // .catch((err) => {
-        //   console.error('Error', err.statusText);
-        // });
+        .catch((err) => {
+          console.error('Error', err.statusText);
+        });
     }
-
   }
 
-  const handleNavLinks = (navLinks) => {
+  const handleNavLinks = () => {
+    const navLinks = document.querySelectorAll('.js-nav-link');
+
     navLinks.forEach($navLink => {
       $navLink.addEventListener('click', (e) => {
         e.preventDefault();
@@ -132,15 +139,32 @@ const routing = () => {
     });
   }
 
-  const init = () => {
-    const navLinks = document.querySelectorAll('.js-nav-link');
+  const handleHeader = () => {
+    const siteHeaderSeletor = '.js-site-header';
+    const $siteHeader =  document.querySelector(siteHeaderSeletor);
 
-    handleNavLinks(navLinks);
-    hanndlePopState(navLinks);
+    if (!$siteHeader) {
+      requestHTML('/')
+        .then((result) => {
+          return parseHTML(result, siteHeaderSeletor);
+        }).then((result) => {
+          injectHeaderHtml(result);
+          handleNavLinks();
+          updateNavigation();
+        })
+        .catch((err) => {
+          console.error('Error', err.statusText);
+        });
+    }
+  }
+
+  const init = () => {
+    handleHeader();
+    handleNavLinks();
+    hanndlePopState();
   }
 
   init();
 };
-
 
 export default routing;

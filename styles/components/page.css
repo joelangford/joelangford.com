@@ -14,7 +14,7 @@
   }
 }
 
-.page.first-load {
+.first-load .page {
   animation-delay: 1.75s;
 }
 
