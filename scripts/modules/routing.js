@@ -30,12 +30,30 @@ const routing = () => {
     }
   }
 
+  const updateURL = (targetUrl) => {
+    history.pushState(null, null, targetUrl);
+  }
+
+  const hanndlePopState = (navLinks) => {
+    window.addEventListener('popstate', (e) => {
+      const $targetLink = null;
+      const targetUrl = e.target.location.href;
+
+      requestContent(targetUrl, null, navLinks);
+    });
+  }
+
   const hideAllChildren = ($parent) => {
     const children = $parent.querySelectorAll('.js-page-content');
 
     children.forEach($child => {
       $child.style.display = 'none';
     });
+  }
+
+  const injectHeaderHtml = (content) => {
+    const $contentContainer = document.querySelector('body');
+    $contentContainer.prepend(content);
   }
 
   const injectContentHtml = (content) => {
@@ -52,11 +70,6 @@ const routing = () => {
     }
   }
 
-  const injectHeaderHtml = (content) => {
-    const $contentContainer = document.querySelector('body');
-    $contentContainer.prepend(content);
-  }
-
   const updateNavigation = () => {
     const navLinks = document.querySelectorAll('.js-nav-link');
     const contentAreas = document.querySelectorAll('.js-page-content');
@@ -71,10 +84,6 @@ const routing = () => {
         }
       });
     });
-  }
-
-  const updateURL = (targetUrl) => {
-    history.pushState(null, null, targetUrl);
   }
 
   const removeFirstLoad = () => {
@@ -130,37 +139,33 @@ const routing = () => {
     });
   }
 
-  const hanndlePopState = (navLinks) => {
-    window.addEventListener('popstate', (e) => {
-      const $targetLink = null;
-      const targetUrl = e.target.location.href;
+  const handleHeader = () => {
+    return new Promise((resolve, reject) => {
+      const siteHeaderSeletor = '.js-site-header';
+      const $siteHeader =  document.querySelector(siteHeaderSeletor);
 
-      requestContent(targetUrl, null, navLinks);
+      if (!$siteHeader) {
+        requestHTML('/').then((result) => {
+          return parseHTML(result, siteHeaderSeletor);
+        }).then((result) => {
+          resolve(result);
+        }).catch((err) => {
+          reject(err.statusText);
+        });
+      } else {
+        resolve();
+      }
     });
   }
 
-  const handleHeader = () => {
-    const siteHeaderSeletor = '.js-site-header';
-    const $siteHeader =  document.querySelector(siteHeaderSeletor);
-
-    if (!$siteHeader) {
-      requestHTML('/')
-        .then((result) => {
-          return parseHTML(result, siteHeaderSeletor);
-        }).then((result) => {
-          injectHeaderHtml(result);
-          handleNavLinks();
-          updateNavigation();
-        })
-        .catch((err) => {
-          console.error('Error', err.statusText);
-        });
-    }
-  }
-
   const init = () => {
-    handleHeader();
-    handleNavLinks();
+    handleHeader().then((result) => {
+      injectHeaderHtml(result);
+      handleNavLinks();
+      updateNavigation();
+    }).catch((errorText) => {
+        console.error('Error', errorText);
+    });
     hanndlePopState();
   }
 
