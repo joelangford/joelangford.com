@@ -1,10 +1,11 @@
-const navToggle = () => {
-  const $navToggleBtn = document.querySelector('.js-nav-toggle');
-  const $siteHeader = document.querySelector('.js-site-header');
-
-  if ($navToggleBtn) {
+const navToggle = (
+  $navToggleBtn = document.querySelector('.js-nav-toggle'),
+  $siteHeader = document.querySelector('.js-site-header'),
+  openClassName = 'open'
+) => {
+  if ($navToggleBtn && $siteHeader) {
     $navToggleBtn.addEventListener('click', () => {
-      $siteHeader.classList.toggle('open');
+      $siteHeader.classList.toggle(openClassName);
     });
   }
 }

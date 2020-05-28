@@ -1,18 +1,22 @@
-export const checkElements = () => {
-  const elements = document.querySelectorAll('.js-fade-in');
+export const checkElements = (
+  animateClassName = 'animate',
+  fadeInElementsClassName = '.js-fade-in'
+) => {
+  const elements = document.querySelectorAll(fadeInElementsClassName);
 
   elements.forEach($element => {
      if ($element.getBoundingClientRect().top - document.documentElement.clientHeight < 0) {
-       $element.classList.add('animate');
+       $element.classList.add(animateClassName);
      }
   });
 };
 
-const elementInView = () => {
-  const $body = document.querySelector('body');
-
+const elementInView = (
+  animationsActiveClassName = 'animations-active',
+  $body = document.querySelector('body')
+) => {
   const init = () => {
-    $body.classList.add('animations-active');
+    $body.classList.add(animationsActiveClassName);
 
     checkElements();
 
