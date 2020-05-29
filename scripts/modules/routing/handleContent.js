@@ -1,4 +1,3 @@
-import checkElements from '../elementInView.js';
 import requestHTML from './requestHTML.js';
 import parseHTML from './parseHTML.js';
 import updateNavigation from './updateNavigation.js';
@@ -30,7 +29,6 @@ const injectContentHtml = (
   $contentContainer = document.querySelector('#content')
 ) => {
   $contentContainer.appendChild(content);
-  checkElements();
 }
 
 const toggleLoading = async (
@@ -51,9 +49,14 @@ const toggleLoading = async (
   }
 }
 
+const initCallbacks = (pageCallbacks) => {
+  pageCallbacks.map(callback  => {callback()});
+}
+
 const handleContent = async (
   targetUrl,
   $targetLink,
+  pageCallbacks,
   $contentContainer = document.querySelector('#content'),
   targetAttributeName = 'data-content-target',
   pageContentSelector = '.js-page-content',
@@ -82,9 +85,14 @@ const handleContent = async (
     }
   }
 
-  window.scrollTo(0, 0);
+  window.scrollBy({
+    top: -document.body.scrollHeight,
+    behavior: 'smooth'
+  });
+
   updateNavigation();
   toggleLoading();
+  initCallbacks(pageCallbacks);
 }
 
 export default handleContent;

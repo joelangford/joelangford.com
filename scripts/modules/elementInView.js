@@ -9,23 +9,18 @@ export const checkElements = (
        $element.classList.add(animateClassName);
      }
   });
+  console.log('bang');
 };
 
-const elementInView = (
+export const elementInView = (
   animationsActiveClassName = 'animations-active',
   $body = document.querySelector('body')
 ) => {
-  const init = () => {
-    $body.classList.add(animationsActiveClassName);
+  $body.classList.add(animationsActiveClassName);
 
+  checkElements();
+
+  window.addEventListener('scroll', () => {
     checkElements();
-
-    window.addEventListener('scroll', () => {
-      checkElements();
-    });
-  }
-
-  init();
+  });
 }
-
-export default elementInView;

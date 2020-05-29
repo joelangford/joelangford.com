@@ -18,6 +18,7 @@ const handleHeader = async (
       const html = await requestHTML('/');
       const parsedHTML = await parseHTML(html, siteHeaderSeletor);
       injectHeaderHtml(parsedHTML);
+
     } catch (err) {
       console.error(err);
     }
