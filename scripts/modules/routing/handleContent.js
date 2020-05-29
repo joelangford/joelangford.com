@@ -33,13 +33,31 @@ const injectContentHtml = (
   checkElements();
 }
 
+const toggleLoading = async (
+  $indicatingElement = document.querySelector('body'),
+  $siteHeader = document.querySelector('.js-site-header'),
+  loadingClassName = 'loading',
+  navOpenClassName = 'open'
+) => {
+  $indicatingElement.classList.toggle(loadingClassName);
+
+  if ($indicatingElement.classList.contains(loadingClassName)) {
+    setTimeout(() => {
+      $indicatingElement.classList.remove(loadingClassName);
+      $siteHeader.classList.remove(navOpenClassName);
+    }, 500);
+  } else {
+    $indicatingElement.classList.add(loadingClassName);
+  }
+}
+
 const handleContent = async (
   targetUrl,
   $targetLink,
   $contentContainer = document.querySelector('#content'),
   targetAttributeName = 'data-content-target',
   pageContentSelector = '.js-page-content',
-  visibleDisplayValue = 'block'
+  visibleDisplayValue = 'block',
 ) => {
   removeFirstLoad();
   let $cachedContent;
@@ -50,20 +68,23 @@ const handleContent = async (
   }
 
   hideAllChildren($contentContainer);
+  toggleLoading();
 
   if ($cachedContent) {
     $cachedContent.style.display = visibleDisplayValue;
-    updateNavigation();
   } else {
     try {
       const html = await requestHTML(targetUrl);
       const parsedHTML = await parseHTML(html, pageContentSelector);
       await injectContentHtml(parsedHTML);
-      updateNavigation();
     } catch (err) {
       console.error(err);
     }
   }
+
+  window.scrollTo(0, 0);
+  updateNavigation();
+  toggleLoading();
 }
 
 export default handleContent;

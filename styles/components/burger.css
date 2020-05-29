@@ -70,7 +70,7 @@
   animation-delay: .5s;
 }
 
-.open .is-exiting .burger {
+.loading .open .burger {
     animation: rotate 1.25s both;
     animation-iteration-count: infinite;
 }
