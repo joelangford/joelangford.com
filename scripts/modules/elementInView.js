@@ -9,7 +9,6 @@ export const checkElements = (
        $element.classList.add(animateClassName);
      }
   });
-  console.log('bang');
 };
 
 export const elementInView = (
