@@ -1,0 +1,25 @@
+.page {
+  animation: fadeIn 1.5s both;
+  padding-top: 40px;
+  position: relative;
+  margin-top: 0;
+  text-align: center;
+  transition: all .5s;
+  z-index: 1;
+}
+
+@media screen and (min-width: 768px) {
+  .page {
+    padding-top: 77px;
+  }
+}
+
+.first-load .page {
+  animation-delay: 1.75s;
+}
+
+.is-exiting .page {
+  animation-fill-mode: none;
+  opacity: 0;
+  transition: all .5s;
+}

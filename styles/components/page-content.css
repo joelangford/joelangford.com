@@ -1,0 +1,25 @@
+.page-content {
+  border-bottom: 1px solid var(--colour-grey);
+}
+
+.page-content:last-child {
+  border-bottom: 0;
+}
+
+.page-content__title {
+  font-family: var(--typ-font-family-brand);
+  font-size: 40px;
+  font-weight: normal;
+  letter-spacing: var(--typ-letter-spacing-brand);
+  line-height: 44px;
+  text-transform: lowercase;
+}
+
+.animations-active .page-content__title {
+  opacity: 0;
+}
+
+.page-content__title.animate {
+  opacity: 1;
+  animation: fadeUpFadeIn .75s both;
+}
