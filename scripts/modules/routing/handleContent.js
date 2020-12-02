@@ -50,7 +50,7 @@ const toggleLoading = async (
 }
 
 const initCallbacks = (pageCallbacks) => {
-  pageCallbacks.map(callback  => {callback()});
+  pageCallbacks();
 }
 
 const handleContent = async (
