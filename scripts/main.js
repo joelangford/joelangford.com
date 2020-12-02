@@ -8,6 +8,5 @@ routing(
         checkElements()
     }, {
         // Options
-        siteHeaderSelector: '.js-site-header'
     }
 );
