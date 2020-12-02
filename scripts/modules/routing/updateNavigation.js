@@ -1,16 +1,11 @@
-const updateNavigation = (
-  navLinks = document.querySelectorAll('.js-nav-link'),
-  contentAreas = document.querySelectorAll('.js-page-content'),
-  targetAttributeName = 'data-content-target',
-  activeClass = 'active'
-) => {
-  navLinks.forEach($navLink => {
-    contentAreas.forEach($contentArea => {
+const updateNavigation = (config) => {
+  document.querySelectorAll(config.navLinksSelector).forEach($navLink => {
+    document.querySelectorAll(config.contentAreasSelector).forEach($contentArea => {
       if ($contentArea.style.display !== 'none') {
-        if ($contentArea.getAttribute('id') === $navLink.getAttribute(targetAttributeName)) {
-          $navLink.classList.add(activeClass);
+        if ($contentArea.getAttribute('id') === $navLink.getAttribute(config.targetAttributeName)) {
+          $navLink.classList.add(config.activeClass);
         } else {
-          $navLink.classList.remove(activeClass);
+          $navLink.classList.remove(config.activeClass);
         }
       }
     });
