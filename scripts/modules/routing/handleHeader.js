@@ -8,15 +8,13 @@ const injectHeaderHtml = (
   $contentContainer.prepend(content);
 }
 
-const handleHeader = async (
-  siteHeaderSeletor = '.js-site-header'
-) => {
-  const $siteHeader =  document.querySelector(siteHeaderSeletor);
+const handleHeader = async (config) => {
+  const $siteHeader =  document.querySelector(config.siteHeaderSelector);
 
   if (!$siteHeader) {
     try {
       const html = await requestHTML('/');
-      const parsedHTML = await parseHTML(html, siteHeaderSeletor);
+      const parsedHTML = await parseHTML(html, config.siteHeaderSelector);
       injectHeaderHtml(parsedHTML);
 
     } catch (err) {

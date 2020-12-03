@@ -16,7 +16,6 @@ export const elementInView = (
   $body = document.querySelector('body')
 ) => {
   $body.classList.add(animationsActiveClassName);
-
   checkElements();
 
   window.addEventListener('scroll', () => {
