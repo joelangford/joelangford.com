@@ -22,7 +22,12 @@
 }
 
 .item__image {
-  max-width: 100%;
+  max-width: 250px;
+}
+
+.item__image--invert path,
+.item__image--invert g {
+  fill: var(--colour-black);
 }
 
 @media only screen and (min-width: 768px) {
